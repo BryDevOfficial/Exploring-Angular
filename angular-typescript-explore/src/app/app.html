@@ -1,5 +1,17 @@
-<div class="container">
+<div style="padding: 20px; font-family: sans-serif; border: 1px solid #ccc;">
+  <h1>Sea Eagle Booking</h1>
+
   @if (activeBooking()) {
-    <h1>Testing: {{ activeBooking().guestName }}</h1>
+    <p><strong>Guest:</strong> {{ activeBooking().guestName }}</p>
+    <p><strong>Room:</strong> {{ activeBooking().roomNumber }}</p>
+    <p><strong>Status:</strong> 
+      <span [style.color]="activeBooking().status === 'Paid' ? 'green' : 'red'">
+        {{ activeBooking().status }}
+      </span>
+    </p>
+
+    <button (click)="markAsPaid()" style="margin-top: 10px; cursor: pointer;">
+      Confirm Payment
+    </button>
   }
 </div>

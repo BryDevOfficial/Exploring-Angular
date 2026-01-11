@@ -1,19 +1,30 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+
+// Define the shape of your data
+interface Booking {
+  guestName: string;
+  roomNumber: number;
+  status: 'Paid' | 'Unpaid';
+}
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  standalone: true,
+  templateUrl: './app.html', // This links to your app.html
 })
-export class App {
-  protected readonly title = signal('angular-typescript-explore');
-
-    // 1. You MUST define the variable here for the HTML to see it
-  // 2. We use a Signal because it's the 2026 standard
-  activeBooking = signal({
+export class App {  // Class name is 'App' to match your error message
+  
+  // Define the signal that the HTML is looking for
+  activeBooking = signal<Booking>({
     guestName: 'Sea Eagle Guest',
-    roomNumber: 101
+    roomNumber: 101,
+    status: 'Unpaid'
   });
+
+  markAsPaid() {
+    this.activeBooking.update(current => ({
+      ...current,
+      status: 'Paid'
+    }));
+  }
 }
